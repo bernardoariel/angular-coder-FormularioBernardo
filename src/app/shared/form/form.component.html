@@ -1,0 +1,33 @@
+<form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="form">
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" formControlName="nombre" class="form-control"
+           [ngClass]="{'is-invalid': nombreControl.invalid && (nombreControl.dirty || nombreControl.touched)}">
+    <div *ngIf="nombreControl.invalid && (nombreControl.dirty || nombreControl.touched)" class="invalid-feedback">
+      <small *ngIf="nombreControl.hasError('required')">El nombre es obligatorio.</small>
+      <small *ngIf="nombreControl.hasError('minlength')">El nombre debe tener al menos {{nombreControl.errors?.['minlength'].requiredLength}} caracteres.</small>
+      <small *ngIf="nombreControl.hasError('maxlength')">El nombre no puede tener más de {{nombreControl.errors?.['maxlength'].requiredLength}} caracteres.</small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="apellido">Apellido:</label>
+    <input type="text" id="apellido" formControlName="apellido" class="form-control"
+           [ngClass]="{'is-invalid': apellidoControl.invalid && (apellidoControl.dirty || apellidoControl.touched)}">
+    <div *ngIf="apellidoControl.invalid && (apellidoControl.dirty || apellidoControl.touched)" class="invalid-feedback">
+      <small *ngIf="apellidoControl.hasError('required')">El apellido es obligatorio.</small>
+      <small *ngIf="apellidoControl.hasError('minlength')">El apellido debe tener al menos {{apellidoControl.errors?.['minlength'].requiredLength}} caracteres.</small>
+      <small *ngIf="apellidoControl.hasError('maxlength')">El apellido no puede tener más de {{apellidoControl.errors?.['maxlength'].requiredLength}} caracteres.</small>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" class="form-control"
+           [ngClass]="{'is-invalid': emailControl.invalid && (emailControl.dirty || emailControl.touched)}">
+    <div *ngIf="emailControl.invalid && (emailControl.dirty || emailControl.touched)" class="invalid-feedback">
+      <small *ngIf="emailControl.hasError('required')">El email es obligatorio.</small>
+      <small *ngIf="emailControl.hasError('email')">El email no es válido.</small>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="formulario.invalid">Guardar</button>
+  
+</form>

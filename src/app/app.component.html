@@ -1,10 +1,18 @@
 <div class="container">
-  <button class="btn btn-info mt-2" (click)="mostrarModal()">Nuevo Estudiante</button>
-  <app-lista [estudiantes]="estudiantes"></app-lista>
-<br><br><br>
+  <div class="d-flex justify-content-between">
+    <h2 class="pt-2">({{cantAlumnos}}) - {{ titulo }}</h2>
+    <button class="btn btn-info mt-2" (click)="mostrarModal()">
+      Nuevo Estudiante
+    </button>
+  </div>
+  <hr />
+
+  <app-tabla (eliminarEstudiante)="onEliminarEstudiante($event)" [estudiantes]="estudiantes"></app-tabla>
+  <br /><br /><br />
 </div>
-<app-form (agregarEstudiante)="agregarEstudiante($event)"></app-form>
 
-<app-modal [(isVisible)]="modalVisible">
-
-</app-modal>
+<app-modal
+  [(isVisible)]="modalVisible"
+  (isVisibleChange)="modalVisible = $event"
+  (agregarEstudiante)="onAgregarEstudiante($event)"
+></app-modal>

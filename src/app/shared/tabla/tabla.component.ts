@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Estudiante } from 'src/app/interfaces/estudiante';
 
 @Component({
@@ -8,4 +8,9 @@ import { Estudiante } from 'src/app/interfaces/estudiante';
 })
 export class TablaComponent {
   @Input() estudiantes: Estudiante[]=[];
+  @Output() eliminarEstudiante = new EventEmitter<number>();
+
+  eliminarEstudianteFc(id: number) {
+    this.eliminarEstudiante.emit(id);
+  }
 }

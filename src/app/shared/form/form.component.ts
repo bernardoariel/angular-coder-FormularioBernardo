@@ -30,7 +30,9 @@ export class FormularioComponent implements OnInit {
     Validators.required,
     Validators.email,
   ])
+
   @Output() agregarEstudiante = new EventEmitter<Estudiante>();
+  @Output() cerrarModal = new EventEmitter<boolean>();
 
   constructor(private fb: FormBuilder) { }
 
@@ -43,7 +45,10 @@ export class FormularioComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.formulario.invalid) return
+    if (this.formulario.invalid){
+      this.formulario.markAllAsTouched();
+      return;
+    }
     const estudiante: Estudiante = {
       id: this.generarId(),
       nombre: this.nombreControl.value,
@@ -52,11 +57,17 @@ export class FormularioComponent implements OnInit {
     };
     this.agregarEstudiante.emit(estudiante);
     this.formulario.reset();
+    this.cerrarModal.emit(true);
   }
 
   generarId(): number {
     // Generar un ID aleatorio entre 1 y 10000
     return Math.floor(Math.random() * 10000) + 1;
+  }
+  cerrarModalFormulario() {
+    console.log('cerrar form');
+    this.formulario.reset();
+    this.cerrarModal.emit(true);
   }
 
 }
